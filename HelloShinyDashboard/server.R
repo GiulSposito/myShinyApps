@@ -10,4 +10,23 @@
 library(shiny)
 
 # Define server logic required to draw a histogram
-shinyServer(function(input, output) {})
+shinyServer(function(input, output) {
+  
+  set.seed(42)
+  histdata <- rnorm(500)
+  
+  print("Shiny Server")
+  
+  output$plot <- renderPlot({
+    print("Server Plot")
+    data <- histdata[seq_len(input$slider)]
+    hist(data)
+  })
+  
+  output$plot2 <- renderPlot({
+    print("Server Plot 3")
+    data <- histdata[seq_len(input$slider2)]
+    hist(data)
+  })
+  
+})

@@ -11,15 +11,55 @@ library(shinydashboard)
 
 # Define UI for application that draws a histogram
 shinyUI(
+  
+  # dashboardPage (estrutura do dash: header, sidebar e body)
   dashboardPage(
-    dashboardHeader(
-      title="Header"
-    ),
+    
+    # header
+    dashboardHeader(title="Header"),
+    
+    # sidebar
     dashboardSidebar(
-      h3("Sidebar")
+      
+      #menu
+      sidebarMenu(
+        
+        # menu aciona um "tabname"
+        menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")), 
+        menuItem("Widgets", tabName = "widgets", icon = icon("th"))
+        
+      )
+      
     ),
+    
+    # body
     dashboardBody(
-      h1("Body")
+      
+      # tabs
+      tabItems(
+        
+        # tab1
+        tabItem( 
+          tabName = "dashboard",
+          fluidRow(
+            box(title = "plot",
+                plotOutput("plot",height = 250, width=NA),
+                sliderInput("slider","Buckets:",1,100,50))
+          )       
+        ),
+        
+        
+        # tab2
+        tabItem(
+          tabName = "widgets",
+          fluidRow(
+            box(title = "plot",
+                plotOutput("plot2",height = 250, width=NA),
+                sliderInput("slider2","observations:",1,100,50))
+          ))
+        
+      )
+
     )
   )
 )
