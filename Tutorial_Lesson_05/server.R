@@ -32,7 +32,15 @@ shinyServer(function(input, output) {
                     "Percent Hispanic" = counties$hispanic,
                     "Percent Asian" = counties$asian)
     
-    percent_map(data,"darkgreen", "% White")
+    color <- switch( input$varSel,
+                     "Percent White" = "darkgreen",
+                     "Percent Black" = "darkred",
+                     "Percent Hispanic" = "darkblue",
+                     "Percent Asian" = "orange")
+    
+    data <- data[data>=input$range[1] & data<=input$range[2]]
+    
+    percent_map(data,color,"% White")
     
   })
   
